@@ -178,7 +178,8 @@ function resumeFalling(item) {
       ) {
         updateScore(1, true);
       } else {
-        updateScore(-1);
+        // Lose 2 points for wrong can
+        updateScore(-2, true);
       }
       item.remove();
       clearInterval(fall);
@@ -304,7 +305,8 @@ function spawnItem() {
       ) {
         updateScore(1, true);
       } else {
-        updateScore(-1);
+        // Lose 2 points for wrong can
+        updateScore(-2, true);
       }
     }
     item.remove();
