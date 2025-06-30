@@ -73,15 +73,31 @@ html, body {
   border-radius: 50%;
   display: block;
   pointer-events: none;
+  user-select: none;
+  background: none;
 }
 
 /* Only keep background color for water */
 .falling.water {
   background-color: #0aabe1;
 }
+
+/* Ensure falling trash images are always visible */
+.falling.trash-recycle .falling-img,
+.falling.trash-waste .falling-img {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  opacity: 1 !important;
+  background: none !important;
+}
+
+/* Prevent .falling.trash-recycle and .falling.trash-waste from having any background */
 .falling.trash-recycle,
 .falling.trash-waste {
-  background: none;
+  background: none !important;
+  border: none !important;
 }
 
 .water {
