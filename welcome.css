@@ -1,0 +1,227 @@
+/* Charity: water color palette */
+:root {
+  --cw-blue: #2E9DF7;
+  --cw-yellow: #FFC907;
+  --cw-teal: #8BD1CB;
+  --cw-dark: #222;
+  --cw-white: #fff;
+  --cw-red: #F5402C;
+}
+
+html, body {
+  font-family: 'Segoe UI', 'Arial', 'Helvetica Neue', Arial, sans-serif;
+  background: var(--cw-blue);
+  color: var(--cw-dark);
+  margin: 0;
+  padding: 0;
+  letter-spacing: 0.01em;
+}
+
+#logo-bar {
+  background: transparent;
+}
+
+.cw-logo-top {
+  margin-top: 2vw;
+  margin-bottom: 0;
+  max-width: 18vw;
+  width: 18vw;
+  height: auto;
+  display: block;
+  z-index: 3001;
+  pointer-events: none;
+}
+
+#welcome-page {
+  font-family: inherit;
+  background: linear-gradient(135deg, var(--cw-blue) 70%, var(--cw-teal) 100%);
+  color: var(--cw-dark);
+}
+
+#welcome-page .cw-footer {
+  background: transparent;
+}
+
+#welcome-page .cw-footer-link {
+  color: var(--cw-yellow);
+  font-size: 1.18rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  font-family: inherit;
+  text-shadow: 0 1px 4px rgba(46,157,247,0.10);
+  transition: color 0.2s;
+}
+
+#welcome-page .cw-footer-link:hover {
+  color: var(--cw-teal);
+  text-decoration: underline;
+}
+
+#welcome-page > div,
+#welcome-page button,
+#welcome-page .cw-footer {
+  font-family: inherit;
+}
+
+#welcome-page > div[style*="color: #FFC907"] {
+  color: var(--cw-yellow) !important;
+  font-size: 2.7rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.01em;
+  text-shadow: 0 2px 8px rgba(46,157,247,0.10);
+  font-family: 'Segoe UI Semibold', 'Segoe UI', Arial, sans-serif;
+}
+
+#welcome-page button,
+#tutorial-page #back-btn {
+  font-family: inherit;
+  font-size: 1.18rem !important;
+  padding: 13px 38px !important;
+  border-radius: 12px !important;
+  border: none;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 12px rgba(46,157,247,0.10);
+  outline: none;
+}
+
+#welcome-page #tutorial-btn {
+  background: var(--cw-teal);
+  color: var(--cw-blue);
+}
+
+#welcome-page #tutorial-btn:hover {
+  background: var(--cw-yellow);
+  color: var(--cw-blue);
+}
+
+#welcome-page #easy-btn {
+  background: var(--cw-teal);
+  color: var(--cw-blue);
+}
+
+#welcome-page #easy-btn:hover {
+  background: var(--cw-yellow);
+  color: var(--cw-blue);
+}
+
+#welcome-page #medium-btn {
+  background: var(--cw-yellow);
+  color: var(--cw-blue);
+}
+
+#welcome-page #medium-btn:hover {
+  background: var(--cw-teal);
+  color: var(--cw-blue);
+}
+
+#welcome-page #hard-btn {
+  background: var(--cw-red);
+  color: var(--cw-white);
+}
+
+#welcome-page #hard-btn:hover {
+  background: var(--cw-yellow);
+  color: var(--cw-red);
+}
+
+#welcome-page #difficulty-row button {
+  margin-bottom: 0;
+}
+
+#welcome-page #difficulty-row {
+  margin-bottom: 32px !important;
+}
+
+#welcome-page .cw-footer {
+  margin-top: 32px;
+  padding-bottom: 18px;
+}
+
+#tutorial-page {
+  font-family: 'Segoe UI', 'Arial', 'Helvetica Neue', Arial, sans-serif;
+  background: linear-gradient(135deg, var(--cw-blue) 70%, var(--cw-teal) 100%);
+  color: var(--cw-dark);
+}
+
+#tutorial-page .tutorial-title {
+  color: var(--cw-yellow);
+  font-size: 2.3rem;
+  font-weight: 800;
+  margin-bottom: 24px;
+  text-align: center;
+  letter-spacing: 0.01em;
+  font-family: 'Segoe UI Semibold', 'Segoe UI', Arial, sans-serif;
+}
+
+#tutorial-page .tutorial-content {
+  background: rgba(255,255,255,0.13);
+  color: var(--cw-white);
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  font-size: 1.13rem;
+  font-family: inherit;
+}
+
+#tutorial-page li span {
+  color: var(--cw-white);
+  font-family: inherit;
+}
+
+#tutorial-page li b {
+  color: var(--cw-yellow);
+  font-family: inherit;
+}
+
+#tutorial-page #back-btn {
+  background: var(--cw-yellow);
+  color: var(--cw-blue);
+  font-size: 1.13rem;
+  padding: 12px 36px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 18px;
+  transition: background 0.2s, color 0.2s;
+  outline: none;
+}
+
+#tutorial-page #back-btn:hover {
+  background: var(--cw-teal);
+  color: var(--cw-blue);
+}
+
+.cw-footer {
+  background: transparent;
+  color: var(--cw-yellow);
+  font-size: 1.13rem;
+  font-weight: bold;
+  text-align: center;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  padding: 18px 0 12px 0;
+  z-index: 2200;
+  font-family: inherit;
+}
+
+.cw-footer-link {
+  color: var(--cw-yellow);
+  font-size: 1.13rem;
+  font-weight: bold;
+  text-decoration: none;
+  opacity: 0.92;
+  transition: opacity 0.2s, text-decoration 0.2s, color 0.2s;
+  font-family: inherit;
+}
+
+.cw-footer-link:hover {
+  opacity: 1;
+  text-decoration: underline;
+  color: var(--cw-teal);
+}

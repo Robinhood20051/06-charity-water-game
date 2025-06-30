@@ -3,30 +3,203 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Clean Catch V1 </title>
+  <title>Clean Catch </title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="welcome.css">
+  <link rel="stylesheet" href="gameover.css">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
 </head>
 <body>
-  <div id="game">
-    <!-- Charity: water logo at the top -->
-    <img src="img/cw_logo_horizontal.png" alt="Charity: water horizontal logo" class="cw-logo">
-    <div id="score">Score: 0</div>
+
+  <!-- Always visible logo at the very top -->
+  <div id="logo-bar" style="width: 100vw; display: flex; justify-content: center; align-items: flex-start; position: fixed; top: 0; left: 0; z-index: 3000; background: transparent; pointer-events: none;">
+    <img src="img/cw_logo_horizontal.png" alt="Charity: water horizontal logo" class="cw-logo-top">
+  </div>
+
+  <!-- Main Charity: water logo at top of main page (welcome page) -->
+  <div style="position: absolute; top: 24px; left: 0; width: 100vw; display: flex; justify-content: center; z-index: 2100; pointer-events: none;">
+    <img src="img/cw_logo_horizontal.png" alt="Charity: water logo" style="max-width: 320px; width: 22vw; height: auto;">
+  </div>
+
+  <!-- Welcome Page (shown by default) -->
+  <div id="welcome-page" style="display: flex; flex-direction: column; align-items: center; justify-content: center; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #2E9DF7; z-index: 2000;">
+    <div style="height: 70px;"></div>
+    <div style="color: #FFC907; font-size: 2.2rem; font-weight: bold; margin-bottom: 18px; text-align: center;">
+      Welcome to Clean Catch!
+    </div>
+    <button id="tutorial-btn" style="font-size: 1rem; padding: 7px 22px; background: #8BD1CB; color: #2E9DF7; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-bottom: 24px;">
+      Tutorial
+    </button>
+    <!-- Add a larger spacer to push difficulty row lower -->
+    <div style="flex:1 1 1; min-height: 180px;"></div>
+    <div id="difficulty-row" style="display: flex; flex-direction: row; gap: 18px; margin-bottom: 18px;">
+      <button id="easy-btn" style="font-size: 1.2rem; padding: 10px 32px; background: #8BD1CB; color: #2E9DF7; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">
+        Easy
+      </button>
+      <button id="medium-btn" style="font-size: 1.2rem; padding: 10px 32px; background: #FFC907; color: #2E9DF7; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">
+        Medium
+      </button>
+      <button id="hard-btn" style="font-size: 1.2rem; padding: 10px 32px; background: #F5402C; color: #fff; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">
+        Hard
+      </button>
+    </div>
+    <!-- Charity: water footer for main page -->
+    <footer class="cw-footer">
+      <a href="https://www.charitywater.org/main" target="_blank" rel="noopener" class="cw-footer-link">
+        Want to provide clean water in the real world?
+      </a>
+    </footer>
+  </div>
+
+  <!-- Tutorial Page (hidden by default) -->
+  <div id="tutorial-page" style="display: none; min-height: 100vh; flex-direction: column; align-items: center;">
+    <div style="height: 70px;"></div>
+    <div class="tutorial-title" style="text-align: center; width: 100%; font-size: 2rem;">
+      How to Play
+    </div>
+    <!-- Responsive tutorial content, smaller max-width for large screens -->
+    <div style="max-width: 100%; margin: 24px auto; padding: 16px; background: #2E9DF7; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); font-size: 1.1rem;">
+      <div style="display: flex; align-items: center; margin-bottom: 18px; flex-wrap: wrap;">
+        <img src="img/Recycle_Bin.png" alt="Recycle Bin" style="width:32px; height:32px; margin-right:14px;">
+        <span style="flex:1;">Move your mouse left and right to control the bin at the bottom of the screen. The bin will follow your mouse.</span>
+      </div>
+      <div style="display: flex; align-items: center; margin-bottom: 18px; flex-wrap: wrap;">
+        <img src="img/Drop.png" alt="Water Drop" style="width:32px; height:32px; margin-right:14px;">
+        <span style="flex:1;">Try to catch blue water drops with the yellow jerrycan for points. The jerrycan moves with the bin.</span>
+      </div>
+      <div style="display: flex; align-items: center; margin-bottom: 18px; flex-wrap: wrap;">
+        <img src="img/Recycle1.png" alt="Recyclable Trash" style="width:28px; height:28px; margin-right:4px;">
+        <img src="img/Trash1.png" alt="Waste Trash" style="width:28px; height:28px; margin-right:14px;">
+        <span style="flex:1;">Catch/Left Click recyclable (dark blue) and waste (gray) trash in the correct bin. Use the right bin for each type!</span>
+      </div>
+      <div style="display: flex; align-items: center; margin-bottom: 18px; flex-wrap: wrap;">
+        <img src="img/Recycle_Bin.png" alt="Recycle Bin" style="width:28px; height:28px; margin-right:4px;">
+        <img src="img/Trash_Bin.png" alt="Trash Bin" style="width:28px; height:28px; margin-right:14px;">
+        <span style="flex:1;">Right-click anywhere to switch your bin between recycle and waste mode. Make sure your bin matches the falling trash!</span>
+      </div>
+      <div style="display: flex; align-items: center; margin-bottom: 18px; flex-wrap: wrap;">
+        <img src="img/Trash1.png" alt="Trash Missed" style="width:28px; height:28px; margin-right:14px;">
+        <span style="flex:1;">If trash falls past the jerrycan, you lose a life. Try not to miss!</span>
+      </div>
+      <div style="display: flex; align-items: center; margin-bottom: 18px; flex-wrap: wrap;">
+        <img src="img/water-can-transparent.png" alt="Jerrycan" style="width:28px; height:28px; margin-right:14px;">
+        <span style="flex:1;">Press the <b>Escape</b> key to pause or unpause the game at any time.</span>
+      </div>
+      <div style="margin-top: 24px; text-align: center;">
+        <button id="back-btn" style="background:#FFC907; border:none; color:white; font-weight:bold; border-radius:8px; padding:10px 32px;">
+          Back to Menu
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="game" style="display: none;">
+    <div style="height: 70px;"></div>
+    <div id="score" style="font-size: 1.2rem;">Score: 0</div>
     <div id="lives"></div>
     <div id="well"></div>
-    <div id="bin">Recycle</div>
-    <!-- The jerrycan image below is controlled by JavaScript. Make sure the id matches and the image path is correct. -->
-    <img id="jerrycan" src = "img/water-can-transparent.png" alt="Yellow jerrycan for collecting water">
-    <button id="binToggle">Toggle Bin (Recycle)</button>
+    <div id="bin"></div>
+    <img id="jerrycan" src="img/water-can-transparent.png" alt="Yellow jerrycan for collecting water">
   </div>
+
   <!-- Game Over Page (hidden by default) -->
   <div id="gameover-page" style="display: none;">
     <img class="gameover-img" src="img/cw_logo.png" alt="Charity: water vertical logo">
     <div class="gameover-content">
-      <div class="gameover-msg">Game Over!</div>
-      <div class="gameover-score" id="gameover-score">Your score: 0</div>
-      <button class="gameover-btn">Restart/Work in Progress</button>
+      <div class="gameover-msg" style="font-size: 1.8rem;">Game Over!</div>
+      <div class="gameover-score" id="gameover-score" style="font-size: 1.3rem;">Your score: 0</div>
+      <button class="gameover-btn" id="restart-btn" style="font-size: 1.1rem; padding: 10px 32px; border-radius: 8px;">Restart</button>
+      <button class="gameover-btn" id="menu-btn" style="font-size: 1.1rem; padding: 10px 32px; border-radius: 8px; margin-top: 16px;">Menu</button>
     </div>
+    <!-- Charity: water footer for gameover page -->
+    <footer class="cw-footer">
+      <a href="https://www.charitywater.org/main" target="_blank" rel="noopener" class="cw-footer-link">
+        Want to provide clean water in the real world?
+      </a>
+    </footer>
   </div>
+
+
+
   <script src="script.js"></script>
+  <script>
+    // Show tutorial page
+    document.getElementById('tutorial-btn').onclick = function() {
+      document.getElementById('welcome-page').style.display = 'none';
+      document.getElementById('tutorial-page').style.display = 'flex';
+      document.getElementById('game').style.display = 'none';
+      document.getElementById('gameover-page').style.display = 'none';
+
+      // Remove any accidental code/text nodes from the tutorial page
+      const tutorialPage = document.getElementById('tutorial-page');
+      // Loop through child nodes and remove text nodes that look like code
+      for (let i = tutorialPage.childNodes.length - 1; i >= 0; i--) {
+        const node = tutorialPage.childNodes[i];
+        if (node.nodeType === Node.TEXT_NODE && node.textContent.trim().match(/^[\s\S]*[{};]/)) {
+          tutorialPage.removeChild(node);
+        }
+      }
+    };
+
+    // Difficulty buttons: show game and set difficulty
+    document.getElementById('easy-btn').onclick = function() {
+      if (typeof setDifficulty === 'function') setDifficulty('easy');
+      document.getElementById('welcome-page').style.display = 'none';
+      document.getElementById('tutorial-page').style.display = 'none';
+      document.getElementById('gameover-page').style.display = 'none';
+      document.getElementById('game').style.display = '';
+      window.location.hash = '';
+    };
+    document.getElementById('medium-btn').onclick = function() {
+      if (typeof setDifficulty === 'function') setDifficulty('medium');
+      document.getElementById('welcome-page').style.display = 'none';
+      document.getElementById('tutorial-page').style.display = 'none';
+      document.getElementById('gameover-page').style.display = 'none';
+      document.getElementById('game').style.display = '';
+      window.location.hash = '';
+    };
+    document.getElementById('hard-btn').onclick = function() {
+      if (typeof setDifficulty === 'function') setDifficulty('hard');
+      document.getElementById('welcome-page').style.display = 'none';
+      document.getElementById('tutorial-page').style.display = 'none';
+      document.getElementById('gameover-page').style.display = 'none';
+      document.getElementById('game').style.display = '';
+      window.location.hash = '';
+    };
+
+    // Back to menu from tutorial
+    document.getElementById('back-btn').onclick = function() {
+      document.getElementById('tutorial-page').style.display = 'none';
+      document.getElementById('welcome-page').style.display = 'flex';
+      document.getElementById('game').style.display = 'none';
+      document.getElementById('gameover-page').style.display = 'none';
+    };
+
+    // Hide the game and gameover page on load
+    window.onload = function() {
+      document.getElementById('game').style.display = 'none';
+      var gameover = document.getElementById('gameover-page');
+      if (gameover) gameover.style.display = 'none';
+      var tutorial = document.getElementById('tutorial-page');
+      if (tutorial) tutorial.style.display = 'none';
+    };
+
+    // Restart button on game over page
+    document.getElementById('restart-btn').onclick = function() {
+      // Hide gameover, show game, reset game state
+      document.getElementById('gameover-page').style.display = 'none';
+      document.getElementById('game').style.display = '';
+      if (typeof restartGame === 'function') restartGame();
+    };
+
+    // Menu button on game over page
+    document.getElementById('menu-btn').onclick = function() {
+      document.getElementById('gameover-page').style.display = 'none';
+      document.getElementById('welcome-page').style.display = 'flex';
+      document.getElementById('game').style.display = 'none';
+      document.getElementById('tutorial-page').style.display = 'none';
+    };
+  </script>
 </body>
 </html>

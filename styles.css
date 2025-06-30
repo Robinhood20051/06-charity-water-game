@@ -16,6 +16,8 @@ Secondary Colors:
 
 * { box-sizing: border-box; }
 
+/* Game Page Styles */
+
 html, body {
   margin: 0;
   padding: 0;
@@ -24,7 +26,8 @@ html, body {
   min-height: 100vh;
   min-width: 100vw;
   font-family: 'Arial', sans-serif;
-  background-color: #2E9DF7; /* Charity: Water blue */
+  font-size: 2vw;
+  background: none;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -38,79 +41,91 @@ html, body {
   min-height: 100vh;
   min-width: 100vw;
   overflow: hidden;
-  background: #2E9DF7; /* Charity: Water blue */
+  background: url('img/Possible_Gradient2.png') no-repeat center center fixed;
+  background-size: cover;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 7vh;
+  cursor: none;
 }
 
 .falling {
   position: absolute;
-  /* Use fixed px for consistent falling and collision */
-  width: 40px;
-  height: 40px;
+  width: 5vw;
+  height: 5vw;
+  min-width: 40px;
+  min-height: 40px;
+  max-width: 100px;
+  max-height: 100px;
   border-radius: 50%;
-  /* Optional: add a little drop shadow for visibility */
   box-shadow: 0 2px 8px rgba(0,0,0,0.10);
-  /* Remove min/max-width/height and vw units for falling objects */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Water: Charity: Water blue */
+.falling-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 50%;
+  display: block;
+  pointer-events: none;
+}
+
+/* Only keep background color for water */
+.falling.water {
+  background-color: #0aabe1;
+}
+.falling.trash-recycle,
+.falling.trash-waste {
+  background: none;
+}
+
 .water {
   background-color: #0aabe1;
 }
-
-/* Recycle: Charity: Water yellow */
 .trash-recycle {
   background-color: #ffc600;
 }
-
-/* Waste: Use a dark gray for contrast */
 .trash-waste {
   background-color: #333333;
 }
 
 #score {
   position: absolute;
-  top: 10px;
-  left: 10px;
-  background: #FFC907; /* Charity: Water yellow */
-  color: #159A48; /* Charity: Water dark green for contrast */
-  padding: 10px 20px;
-  font-weight: bold;
+  top: 2vh;
+  left: 2vw;
+  padding: 0.6vw 1.2vw;
+  font-size: 0.8em;
+  color: #159A48;
+  background: #FFC907;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
   z-index: 10;
 }
 
 #binToggle {
-  display: none;
+  display: none !important;
+  font-size: 1rem;
+  padding: 7px 22px;
+  border-radius: 7px;
+  margin-top: 18px;
 }
 
 #well {
-  position: absolute;
-  bottom: 80px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100px;
-  height: 60px;
-  min-width: 60px;
-  max-width: 120px;
-  background-color: #2E9DF7; /* Charity: Water blue */
-  border-radius: 50% / 25%;
-  border: 4px solid #FFC907; /* Charity: Water yellow */
+  display: none;
 }
 
 #bin {
   position: absolute;
-  width: 80px;
-  height: 40px;
-  min-width: 60px;
-  max-width: 100px;
-  background-color: #FFC907; /* Charity: Water yellow */
-  color: #159A48; /* Charity: Water dark green for contrast */
-  border: 2px solid #2E9DF7; /* Charity: Water blue */
-  border-radius: 10px;
+  /* Remove background and color for icon bin */
+  background: none !important;
+  color: inherit;
+  border: none;
+  border-radius: 0;
   text-align: center;
   line-height: normal;
   display: flex;
@@ -119,41 +134,46 @@ html, body {
   font-weight: bold;
   pointer-events: none;
   z-index: 5;
-  transition: background 0.2s, color 0.2s, border-color 0.2s;
+  transition: none;
+  /* Size will be set by JS for responsiveness */
+  width: 12vw;
+  height: 10vw;
+  min-width: 100px;
+  min-height: 80px;
+  max-width: 220px;
+  max-height: 180px;
+  padding: 0;
 }
 
-/* Bin color for recycle */
-#bin[style*="background-color: #ffc600"] {
-  background-color: #ffc600 !important;
-  color: #222 !important;
-  border-color: #ffc600 !important;
+.bin-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+  background: none;
 }
 
-/* Bin color for waste */
-#bin[style*="background-color: #333333"] {
-  background-color: #333333 !important;
-  color: #fff !important;
-  border-color: #333333 !important;
-}
-
-#bin.bin-recycle {
-  background-color: #FFC907 !important;
-  color: #159A48 !important;
-  border-color: #FFC907 !important;
-}
+/* Remove old bin color classes */
+#bin.bin-recycle,
 #bin.bin-waste {
-  background-color: #333333 !important; /* fallback for waste, not a brand color, but for contrast */
-  color: #fff !important;
-  border-color: #333333 !important;
+  background: none !important;
+  color: inherit !important;
+  border: none !important;
 }
 
 #jerrycan {
   position: absolute;
-  bottom: 20px;
+  bottom: 3vh;
   left: 50%;
   transform: translateX(-50%);
-  width: 100px;
-  height: 100px;
+  width: 10vw;
+  height: 10vw;
+  min-width: 70px;
+  min-height: 70px;
+  max-width: 180px;
+  max-height: 180px;
   z-index: 6;
   display: block;
 }
@@ -165,152 +185,82 @@ html, body {
   left: 8px;
   width: 12px;
   height: 12px;
-  background: #2E9DF7; /* Charity: Water blue */
+  background: #2E9DF7;
   border-radius: 3px;
 }
 
 #lives {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 3vh;
+  right: 2vw;
   display: flex;
-  gap: 8px;
+  gap: 2vw;
   z-index: 11;
 }
 
 .life-jerrycan {
-  width: 28px;
-  height: 35px;
-  min-width: 18px;
-  max-width: 32px;
-  background: #FFC907; /* Charity: Water yellow */
-  border: 2px solid #2E9DF7; /* Charity: Water blue */
-  border-radius: 6px 6px 10px 10px;
-  position: relative;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.10);
-  display: inline-block;
-}
-.life-jerrycan::before {
-  content: '';
-  display: block;
-  position: absolute;
-  top: 4px;
-  left: 5px;
-  width: 8px;
-  height: 8px;
-  background: #2E9DF7; /* Charity: Water blue */
-  border-radius: 2px;
-}
-
-/* Game Over Overlay */
-#gameover-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: #2E9DF7; /* Charity: Water blue */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.gameover-msg {
-  color: #FFC907; /* Charity: Water yellow */
-  font-size: 3rem;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
-
-.gameover-score {
-  color: #8BD1CB; /* Charity: Water light blue */
-  font-size: 2rem;
-  margin-bottom: 30px;
-}
-
-.gameover-btn {
-  font-size: 1.5rem;
-  padding: 10px 30px;
-  background: #FFC907; /* Charity: Water yellow */
-  color: #2E9DF7; /* Charity: Water blue */
+  width: 4vw;
+  height: 5.4vw;
+  min-width: 36px;
+  min-height: 48px;
+  max-width: 80px;
+  max-height: 108px;
+  background: none;
   border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background 0.2s, color 0.2s;
-}
-.gameover-btn:hover {
-  background: #2E9DF7; /* Charity: Water blue */
-  color: #FFC907; /* Charity: Water yellow */
-  border: 2px solid #FFC907;
-}
-
-/* Game Over Page */
-#gameover-page {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: #2E9DF7; /* Charity: Water blue */
+  border-radius: 0;
+  position: relative;
+  box-shadow: none;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
+  padding: 0;
 }
+
+.life-jerrycan img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0.85;
+  display: block;
+}
+
+.cw-logo {
+  display: block;
+  margin: 2vw auto 1vw auto;
+  max-width: 18vw;
+  width: 18vw;
+  height: auto;
+}
+
+.cw-logo-top {
+  margin-top: 2vw;
+  margin-bottom: 0;
+  max-width: 18vw;
+  width: 18vw;
+  height: auto;
+  display: block;
+  z-index: 3001;
+  pointer-events: none;
+}
+
 .gameover-img {
-  margin-bottom: 32px;
+  margin-bottom: 2vw;
   position: static;
   top: auto;
   left: auto;
   transform: none;
-  max-width: 220px;
-  width: 60vw;
+  max-width: 18vw;
+  width: 18vw;
   height: auto;
 }
-.gameover-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 48px;
-}
-#gameover-page .gameover-msg {
-  color: #FFC907; /* Charity: Water yellow */
-  font-size: 3rem;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
-#gameover-page .gameover-score {
-  color: #8BD1CB; /* Charity: Water light blue */
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 30px;
-}
-#gameover-page .gameover-btn {
-  font-size: 1.5rem;
-  padding: 10px 30px;
-  background: #FFC907; /* Charity: Water yellow */
-  color: #2E9DF7; /* Charity: Water blue */
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background 0.2s, color 0.2s;
-}
-#gameover-page .gameover-btn:hover {
-  background: #2E9DF7; /* Charity: Water blue */
-  color: #FFC907; /* Charity: Water yellow */
-  border: 2px solid #FFC907;
-}
 
-/* Add a style for the logo at the top of the game */
-.cw-logo {
-  display: block;
-  margin: 24px auto 8px auto;
-  max-width: 220px;
-  width: 60vw;
+.gameover-img {
+  margin-bottom: 2vw;
+  position: static;
+  top: auto;
+  left: auto;
+  transform: none;
+  max-width: 18vw;
+  width: 18vw;
   height: auto;
 }

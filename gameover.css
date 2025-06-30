@@ -1,0 +1,198 @@
+#gameover-page {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #2E9DF7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.gameover-img {
+  margin-bottom: 32px;
+  max-width: 220px;
+  width: 60vw;
+  height: auto;
+}
+
+.gameover-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 48px;
+}
+
+#gameover-page .gameover-msg {
+  color: #FFC907;
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+#gameover-page .gameover-score {
+  color: #8BD1CB;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+#gameover-page .gameover-btn {
+  font-size: 1.5rem;
+  padding: 10px 30px;
+  background: #FFC907;
+  color: #2E9DF7;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s, color 0.2s;
+}
+
+#gameover-page .gameover-btn:hover {
+  background: #2E9DF7;
+  color: #FFC907;
+  border: 2px solid #FFC907;
+}
+
+#tutorial-page {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #2E9DF7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 2100;
+  padding: 0;
+}
+
+#tutorial-page > div:first-child {
+  height: 70px;
+}
+
+#tutorial-page .tutorial-title {
+  color: #FFC907;
+  font-size: 2.2rem;
+  font-weight: bold;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+#tutorial-page .tutorial-flex-row {
+  display: flex;
+  flex-direction: row;
+  gap: 36px;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 1100px;
+  margin-bottom: 36px;
+}
+
+#tutorial-page .tutorial-content {
+  color: #fff;
+  font-size: 1.1rem;
+  max-width: 520px;
+  width: 90vw;
+  text-align: left;
+  background: rgba(0,0,0,0.13);
+  padding: 28px 32px;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+}
+
+#tutorial-page ul {
+  padding-left: 0;
+  margin: 0;
+  list-style: none;
+}
+
+#tutorial-page li {
+  margin-bottom: 22px;
+  display: flex;
+  align-items: center;
+  font-size: 1.08em;
+}
+
+#tutorial-page li:last-child {
+  margin-bottom: 0;
+}
+
+#tutorial-page li img {
+  width: 38px;
+  height: 38px;
+  margin-right: 16px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  object-fit: contain;
+}
+
+#tutorial-page li span {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#tutorial-page #back-btn {
+  font-size: 1.1rem;
+  padding: 10px 32px;
+  background: #FFC907;
+  color: #2E9DF7;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 18px;
+  transition: background 0.2s, color 0.2s;
+}
+
+#tutorial-page #back-btn:hover {
+  background: #2E9DF7;
+  color: #FFC907;
+  border: 2px solid #FFC907;
+}
+
+.cw-footer {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  padding: 18px 0 12px 0;
+  background: transparent;
+  z-index: 2200;
+}
+
+.cw-footer-link {
+  color: #FFC907;
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-decoration: none;
+  opacity: 0.92;
+  transition: opacity 0.2s, text-decoration 0.2s;
+}
+
+.cw-footer-link:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+.cw-footer-logo {
+  height: 32px;
+  width: auto;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 8px;
+
+  vertical-align: middle;
+  margin-right: 8px;
+}
