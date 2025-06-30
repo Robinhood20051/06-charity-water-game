@@ -198,6 +198,11 @@ html, body {
   max-height: 180px;
   z-index: 6;
   display: block;
+  user-drag: none;
+  -webkit-user-drag: none;
+  -moz-user-drag: none;
+  -ms-user-drag: none;
+  pointer-events: none;
 }
 #jerrycan::before {
   content: '';
