@@ -1,15 +1,18 @@
 // --- GAME LOGIC (from game.js) ---
 
+// Get references to main game elements
 const game = document.getElementById('game');
 const scoreDisplay = document.getElementById('score');
 const bin = document.getElementById('bin');
 const livesDisplay = document.getElementById('lives');
 const jerrycan = document.getElementById('jerrycan');
 
+// Set jerrycan image
 if (jerrycan) {
   jerrycan.src = 'img/water-can-transparent.png';
 }
 
+// Game state variables
 let score = 0;
 let binModes = ['recycle', 'waste'];
 let binModeIndex = 0;
@@ -23,6 +26,7 @@ let fallSpeed = 3;
 let spawnRate = 1000;
 let spawnInterval = null;
 
+// Update the display of lives (jerrycans)
 function updateLives() {
   livesDisplay.innerHTML = '';
   for (let i = 0; i < lives; i++) {
@@ -37,9 +41,11 @@ function updateLives() {
 }
 updateLives();
 
+// Sound for scoring points
 const popSound = new Audio('audio/pop.mp3');
 popSound.volume = 0.7;
 
+// Update the score and optionally play a sound
 function updateScore(change, playSound = false) {
   score += change;
   if (score < 0) score = 0;
@@ -52,6 +58,7 @@ function updateScore(change, playSound = false) {
   }
 }
 
+// Switch bin mode (recycle/waste) on right-click
 game.addEventListener('contextmenu', e => {
   e.preventDefault();
   binModeIndex = (binModeIndex + 1) % binModes.length;
@@ -59,6 +66,7 @@ game.addEventListener('contextmenu', e => {
   updateBinDisplay();
 });
 
+// Update the bin image and style based on mode
 function updateBinDisplay() {
   bin.innerHTML = '';
   const img = document.createElement('img');
@@ -82,6 +90,7 @@ function updateBinDisplay() {
   bin.style.padding = '0';
 }
 
+// Move bin and jerrycan with mouse
 game.addEventListener('mousemove', e => {
   const rect = game.getBoundingClientRect();
   const binWidth = bin.offsetWidth || 100;
@@ -94,6 +103,7 @@ game.addEventListener('mousemove', e => {
   jerrycan.style.left = `${centerX + binWidth / 2 - jerrycanWidth / 2 + -15}px`;
 });
 
+// Pause/unpause game with Escape key
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') {
     if (!paused) {
@@ -109,20 +119,27 @@ document.addEventListener('keydown', e => {
   }
 });
 
+// Resume falling for paused items
 function resumeFalling(item) {
   const fall = setInterval(() => {
     if (paused) return;
     const currentTop = parseInt(item.style.top);
     item.style.top = `${currentTop + fallSpeed}px`;
+
+    // Get positions for collision detection
     const binRect = bin.getBoundingClientRect();
     const itemRect = item.getBoundingClientRect();
     const jerrycanRect = jerrycan.getBoundingClientRect();
+
+    // Check for overlap with bin
     const overlap = !(
       itemRect.right < binRect.left ||
       itemRect.left > binRect.right ||
       itemRect.bottom < binRect.top ||
       itemRect.top > binRect.bottom
     );
+
+    // Check for water collected by jerrycan
     const waterCollected = (
       item.dataset.type === 'water' &&
       !(itemRect.right < jerrycanRect.left ||
@@ -130,6 +147,8 @@ function resumeFalling(item) {
         itemRect.bottom < jerrycanRect.top ||
         itemRect.top > jerrycanRect.bottom)
     );
+
+    // If item falls past jerrycan, lose a life
     if (currentTop > (jerrycan.offsetTop + jerrycan.offsetHeight)) {
       if (item.dataset.type === 'trash-recycle' || item.dataset.type === 'trash-waste') {
         lives--;
@@ -150,6 +169,8 @@ function resumeFalling(item) {
       fallIntervals = fallIntervals.filter(f => f !== fall);
       return;
     }
+
+    // Handle catching trash or water
     if (overlap) {
       if (
         (item.dataset.type === 'trash-recycle' && binMode === 'recycle') ||
@@ -172,8 +193,10 @@ function resumeFalling(item) {
   fallIntervals.push(fall);
 }
 
+// Spawn a new falling item (trash or water)
 function spawnItem() {
   if (paused) return;
+
   const item = document.createElement('div');
   const trashTypes = [
     { type: 'trash-recycle', images: ['img/Recycle1.png', 'img/Recycle2.png'] },
@@ -181,6 +204,8 @@ function spawnItem() {
   ];
   const isWater = Math.random() < 0.5;
   let type, imgSrc;
+
+  // Create water drop or trash
   if (isWater) {
     type = 'water';
     item.className = 'falling water';
@@ -207,19 +232,24 @@ function spawnItem() {
     img.style.height = '120%';
     item.appendChild(img);
   }
+
+  // Set random horizontal position
   item.style.left = `${Math.random() * (game.clientWidth - 40)}px`;
   item.style.top = '0px';
   game.appendChild(item);
 
+  // Animate falling
   const interval = setInterval(() => {
     if (paused) return;
     let top = parseInt(item.style.top);
     item.style.top = (top + fallSpeed) + 'px';
+
+    // Lose a life if trash falls past jerrycan
     if (top > (jerrycan.offsetTop + jerrycan.offsetHeight)) {
       if (type === 'trash-recycle' || type === 'trash-waste') {
         lives--;
         try {
-          const missSound = new Audio("audiomiss.mp3");
+          const missSound = new Audio("audio/miss.mp3");
           missSound.volume = 0.7;
           missSound.currentTime = 0;
           missSound.play();
@@ -235,6 +265,8 @@ function spawnItem() {
       fallIntervals = fallIntervals.filter(f => f !== interval);
       return;
     }
+
+    // Water collected by jerrycan
     if (type === 'water') {
       const itemRect = item.getBoundingClientRect();
       const jerrycanRect = jerrycan.getBoundingClientRect();
@@ -252,6 +284,8 @@ function spawnItem() {
         return;
       }
     }
+
+    // Remove item if it falls off the screen
     if (top > game.clientHeight) {
       item.remove();
       clearInterval(interval);
@@ -260,6 +294,7 @@ function spawnItem() {
   }, 16);
   fallIntervals.push(interval);
 
+  // Allow clicking trash for points
   item.addEventListener('pointerdown', e => {
     if (e.pointerType === 'mouse' && e.button !== 0) return;
     if (lives > 0) {
@@ -278,6 +313,7 @@ function spawnItem() {
   });
 }
 
+// Set difficulty (easy, medium, hard)
 function setDifficulty(mode) {
   if (mode === 'easy') {
     fallSpeed = 3;
@@ -292,6 +328,7 @@ function setDifficulty(mode) {
   restartGame();
 }
 
+// Show game over screen
 function showGameOver() {
   clearInterval(spawnInterval);
   fallIntervals.forEach(clearInterval);
@@ -302,12 +339,14 @@ function showGameOver() {
   }
 }
 
+// Hide game on welcome page
 if (document.getElementById('welcome-page')) {
   document.getElementById('game').style.display = 'none';
 } else {
   document.getElementById('game').style.display = '';
 }
 
+// Restart the game and reset state
 function restartGame() {
   document.querySelectorAll('.falling').forEach(el => el.remove());
   score = 0;
@@ -329,12 +368,14 @@ function restartGame() {
   updateBinDisplay();
 }
 
+// Expose functions for other scripts
 window.restartGame = restartGame;
 window.setDifficulty = setDifficulty;
 
-updateBinDisplay();
+// Initialize bin display
 updateBinDisplay();
 
+// Remove duplicate logos and unused elements on DOM load
 window.addEventListener('DOMContentLoaded', () => {
   const logoBar = document.getElementById('logo-bar');
   if (logoBar) logoBar.remove();
@@ -346,6 +387,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 // --- GAME OVER LOGIC (from gameover.js) ---
 
+// Show the game over page with the final score
 window.showGameOverPage = function(finalScore) {
   let page = document.getElementById('gameover-page');
   if (!page) {
